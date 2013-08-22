@@ -1,0 +1,9 @@
+{% extends "pattern.html" %}
+ 
+{% block title %}PyTurl: Record{% endblock %}
+ 
+{% block body %}
+<h2 class="form-signin-heading">Votre mini URL:</h2>
+<input class="input-block-level" type="text" value="{{ key }}" />
+→ Redirige vers <a href="{{ key }}" >{{ url }}</a>
+{% endblock %}

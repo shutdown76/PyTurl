@@ -1,0 +1,22 @@
+{% extends "pattern.html" %}
+ 
+{% block title %}PyTurl: Home{% endblock %}
+ 
+{% block body %}
+    <div class="container">
+        <form class="form-signin" method="POST" action="/submit" >
+            <h2 class="form-signin-heading">Url à raccourcir</h2>
+            <input class="input-block-level" type="text" name="url" placeholder="http://perdu.com/" />
+            <button class="btn btn-large btn-primary" type="submit">Raccourcir <i class="icon-share-alt"></i></button>
+        </form>
+    </div>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul class="erreur">
+            {% for m in messages %}
+            <li><i class="icon-warning-sign icon-large"> </i> {{ m }}</li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+{% endblock %}
