@@ -31,7 +31,7 @@ app.secret_key = 'plop'
 def index(msg=None):
     if msg:
         flash(msg, 'erreur')
-    return render_template('index.html', titre="PyTurl: Home")
+    return render_template('index.html', title="PyTurl: Home")
 
 
 @app.route('/<key>')
@@ -56,15 +56,15 @@ def submit():
     key = i.keygen(8)
     i.addentry(key,url)
 
-    return render_template('submit.html', titre="PyTurl: Record", url=url, key=request.url_root+key)
+    return render_template('submit.html', title="PyTurl: Record", url=url, key=request.url_root+key)
 
 @app.route('/about')
 def about():
-    return render_template('about.html', titre="PyTurl: About")
+    return render_template('about.html', title="PyTurl: About")
 
 @app.route('/contact')
 def contact():
-    return render_template('contact.html', titre="PyTurl: Contact")
+    return render_template('contact.html', title="PyTurl: Contact")
 
 if __name__ == '__main__':
     app.run(debug=True)
