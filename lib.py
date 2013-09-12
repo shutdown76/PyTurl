@@ -57,7 +57,7 @@ class pyTurl():
         c.close()
 
 
-    def dbcon(self,query):
+    def dbcon(self,query, *args):
         """ Connexion à la DB """
         try:
             with open('pyTurl.db'): pass
@@ -67,7 +67,7 @@ class pyTurl():
         db = sqlite3.connect('pyTurl.db')
         db.row_factory = sqlite3.Row
         c = db.cursor()
-        c.execute(query)
+        c.execute(query,args)
         db.commit()
         r=[]
         for i in c:
@@ -81,12 +81,12 @@ class pyTurl():
 
     def addentry(self, key, url):
         """ Ajout une nouvelle entré à la DB"""
-        self.dbcon("INSERT INTO pyturl (key, url) VALUES ('"+key+"', '"+url+"');")
+        self.dbcon("INSERT INTO pyturl (key, url) VALUES (?, ?);", key, url)
 
 
     def readentry(self, key):
         """ Lis une entré en DB"""
-        r = self.dbcon("SELECT url FROM pyturl where key='"+key+"';")
+        r = self.dbcon("SELECT url FROM pyturl where key=?;", key)
         return r
 
 
