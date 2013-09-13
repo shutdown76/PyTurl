@@ -6,4 +6,12 @@
 <h2 class="form-signin-heading">Votre mini URL:</h2>
 <input class="input-block-level" type="text" value="{{ key }}" />
 → Redirige vers <a href="{{ key }}" >{{ url }}</a>
+<br /><br />
+
+<h2 class="form-signin-heading">Le QRcode de l'adresse:</h2>
+<img src="data:image/png;base64,
+{{ qr }}
+" alt="QR code" />
+
+
 {% endblock %}

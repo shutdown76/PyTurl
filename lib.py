@@ -20,6 +20,8 @@
 import random
 import string
 import sqlite3
+import qrcode
+import base64
 
 class pyTurl():
     """ Class dédier à pyTurl """
@@ -28,7 +30,7 @@ class pyTurl():
         """Generateur de clé """
 
         dico = string.printable[:62]
-        key = ''.join([dico[random.randrange(0,len(dico))] for loop in range(length)])
+        key = ''.join([dico[random.randrange(0, len(dico))] for loop in range(length)])
             
         print self.readentry(key)
 
@@ -57,7 +59,7 @@ class pyTurl():
         c.close()
 
 
-    def dbcon(self,query, *args):
+    def dbcon(self, query, *args):
         """ Connexion à la DB """
         try:
             with open('pyTurl.db'): pass
@@ -67,9 +69,9 @@ class pyTurl():
         db = sqlite3.connect('pyTurl.db')
         db.row_factory = sqlite3.Row
         c = db.cursor()
-        c.execute(query,args)
+        c.execute(query, args)
         db.commit()
-        r=[]
+        r = []
         for i in c:
             r.append(i)
         c.close()
@@ -88,6 +90,27 @@ class pyTurl():
         """ Lis une entré en DB"""
         r = self.dbcon("SELECT url FROM pyturl where key=?;", key)
         return r
+
+
+    def qrgen(self, url):
+        """Generation du qrcode pour l'url"""
+        qrc = qrcode.make(url, version = 5, error_correction = qrcode.constants.ERROR_CORRECT_H)
+        file_name = self.keygen(12)
+        qrc.save('tmp/' + file_name + '.png')
+
+        return file_name
+
+    def getqr(self, name):
+        """Renvoi le qrcode en base64"""
+        img = open('tmp/'+name+'.png')
+        data = base64.encodestring(img.read())
+
+        return data
+
+
+
+
+
 
 
 # vim:set shiftwidth=4 tabstop=4 expandtab textwidth=79

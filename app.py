@@ -56,7 +56,13 @@ def submit():
     key = i.keygen(8)
     i.addentry(key,url)
 
-    return render_template('submit.html', title="PyTurl: Record", url=url, key=request.url_root+key)
+    q = lib.pyTurl()
+    fqr = q.qrgen(url)
+    
+    d = lib.pyTurl()
+    qr = d.getqr(fqr)
+
+    return render_template('submit.html', title="PyTurl: Record", url=url, key=request.url_root+key, qr=qr)
 
 @app.route('/about')
 def about():
